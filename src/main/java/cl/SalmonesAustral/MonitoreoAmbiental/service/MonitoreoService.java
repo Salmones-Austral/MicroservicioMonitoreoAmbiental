@@ -11,32 +11,37 @@ import java.util.List;
 public class MonitoreoService {
     @Autowired
     private MonitoreoRepository monitoreoRepository;
-    //obtener todos los registros
+    // GET obtener todos los registros
     public List<MonitoreoA>getAllMonitoreo() {
         return monitoreoRepository.findAll();
     }
-    //guardar
+    //POST guardar
     public MonitoreoA saveMonitoreo(MonitoreoA monitoreo) {
         return monitoreoRepository.save(monitoreo);
     }
-    //actualizar
+    //GET por id
+    public MonitoreoA getMonitoreoId(int id) {
+        return monitoreoRepository.findById(id).orElse(null);
+    }
+    //PUT actualizar
     public MonitoreoA updateMonitoreo(MonitoreoA monitoreo) {
         return monitoreoRepository.save(monitoreo);
     }
-    //borrar
+    //DELETE
     public String deleteMonitoreo(int id) {
         monitoreoRepository.deleteById(id);
         return "monitoreo eliminado";
     }
 
+    //La accion la hace el service
+    public int totalMonitoreos() {
+        return(int) monitoreoRepository.count();
+    }
     //obtener por jaula
     public List<MonitoreoA>ObtenerJaula(int jaulaId) {
-        return monitoreoRepository.getByJaulaId(jaulaId);
+        return monitoreoRepository.selectPorJaula(jaulaId);
         //.orElse(null);
 
-    }
-    public void setById (MonitoreoA monitoreo) {
-        monitoreoRepository.save(monitoreo);
     }
 
 }

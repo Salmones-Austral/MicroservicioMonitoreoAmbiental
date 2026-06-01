@@ -1,4 +1,6 @@
 package cl.SalmonesAustral.MonitoreoAmbiental.modelo;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +32,7 @@ public class MonitoreoA {
     private double salinidad;
 
     @Column(name="fecha_registro", nullable=false)
-    private int fechaRegistro;
+    private LocalDateTime fechaRegistro;
 
     @Column (name="usuario_id", nullable=false)
     private int usuarioId;

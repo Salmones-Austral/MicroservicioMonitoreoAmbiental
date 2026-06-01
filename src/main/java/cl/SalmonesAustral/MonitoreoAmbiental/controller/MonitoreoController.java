@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import cl.SalmonesAustral.MonitoreoAmbiental.dto.CreateRequestMonitoreo;
+import cl.SalmonesAustral.MonitoreoAmbiental.dto.CreateMonitoreoRequest;
 import cl.SalmonesAustral.MonitoreoAmbiental.mapper.MonitoreoMapper;
 
 
@@ -33,18 +33,17 @@ public class MonitoreoController {
         }
 
         @PostMapping
-        public MonitoreoA setMonitoreo (@RequestBody CreateRequestMonitoreo requestMonitoreo) {
+        public MonitoreoA setMonitoreo (@RequestBody CreateMonitoreoRequest requestMonitoreo) {
             MonitoreoA monitoreo = MonitoreoMapper.toMonitoreo(requestMonitoreo);
             System.err.println(monitoreo.getId());
             System.err.println(monitoreo.getJaulaId());
             System.err.println(monitoreo.getTemperatura());
             System.err.println(monitoreo.getOxigenoDisuelto());
             System.err.println(monitoreo.getSalinidad());
-             System.err.println(monitoreo.getFechaRegistro());
+            System.err.println(monitoreo.getFechaRegistro());
             System.err.println(monitoreo.getUsuarioId());
            
-            this.monitoreoService.setById(monitoreo);
-            return monitoreo;
+            return  this.monitoreoService.saveMonitoreo(monitoreo);
         }   
         
         
