@@ -38,7 +38,7 @@ public class MonitoreoService {
         return(int) monitoreoRepository.count();
     }
     //obtener por jaula
-    public List<MonitoreoA>ObtenerJaula(int jaulaId) {
+    public List<MonitoreoA>obtenerJaula(int jaulaId) {
         return monitoreoRepository.selectPorJaula(jaulaId);
         //.orElse(null);
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import cl.SalmonesAustral.MonitoreoAmbiental.modelo.MonitoreoA;
 
@@ -13,13 +14,14 @@ import cl.SalmonesAustral.MonitoreoAmbiental.modelo.MonitoreoA;
 
 public interface MonitoreoRepository extends JpaRepository<MonitoreoA, Integer> {
          //buscar por jaula
+    @Query(value="SELECT * FROM tabla_monitoreo WHERE jaula_id= :jaulaId", nativeQuery=true)
+    List<MonitoreoA>selectPorJaula(@Param("jaulaId") int jaulaId);
+    //buscar por usuario
+    @Query(value="SELECT * FROM tabla_monitoreo WHERE usuario_id= :usuarioId", nativeQuery = true)
+    List<MonitoreoA>selectPorUsuario(@Param("usuarioId") int usuarioId);
 
-    List<MonitoreoA> findByJaulaId(int jaulaId);
-
-    //custom total de registros
-    @Query("SELECT m COUNT(m) FROM MonitoreoA m")
-    int totalMonitoreos();
-    @Query ("SELECT m FROM MonitoreoA m WHERE m.jaulaId = :jaulaId")
-    List<MonitoreoA>selectPorJaula(int jaulaId);
-
+    //la accion la hace el modelo
+    default int totalMonitoreos() {
+        return(int)this.count();
+    }
 }
