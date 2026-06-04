@@ -4,16 +4,19 @@ import cl.SalmonesAustral.MonitoreoAmbiental.dto.CreateMonitoreoRequest;
 import cl.SalmonesAustral.MonitoreoAmbiental.modelo.MonitoreoA;
 
 public class MonitoreoMapper {
+    //Post
     public static MonitoreoA toMonitoreo (CreateMonitoreoRequest request ) {
-        MonitoreoA monitoreo = new MonitoreoA();
-        monitoreo.getId();
-        monitoreo.getJaulaId();
-        monitoreo.getTemperatura();
-        monitoreo.getOxigenoDisuelto();
-        monitoreo.getSalinidad();
-        monitoreo.getFechaRegistro();
-        monitoreo.getUsuarioId();
-        return monitoreo;
+        return new MonitoreoA(
+        0,
+        request.jaulaId(),
+        request.temperatura(),
+        request.oxigenoDisuelto(),
+        request.salinidad(),
+        request.bloomAlgas(),
+        request.fechaRegistro(),
+        request.usuarioId()
+    );
+
            
         
     }

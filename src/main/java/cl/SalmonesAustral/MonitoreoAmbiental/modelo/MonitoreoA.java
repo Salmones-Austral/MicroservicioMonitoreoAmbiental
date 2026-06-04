@@ -29,6 +29,8 @@ public class MonitoreoA {
 
     @Column(name="salinidad", nullable=false)
     private double salinidad;
+    @Column(name="bloo_algas, nullable=false")
+    private boolean bloomAlgas;
 
     @Column(name="fecha_registro", nullable=false)
     private LocalDateTime fechaRegistro;
@@ -40,12 +42,13 @@ public class MonitoreoA {
     public MonitoreoA(){}
     //Constructor completo
     public MonitoreoA(int id, int jaulaId, double temperatura, double oxigenoDisuelto,
-        double salinidad, LocalDateTime fechaRegistro, int usuarioId) {
+        double salinidad, boolean bloomAlgas, LocalDateTime fechaRegistro, int usuarioId) {
             this.id=id;
             this.jaulaId=jaulaId;
             this.temperatura=temperatura;
             this.oxigenoDisuelto=oxigenoDisuelto;
             this.salinidad=salinidad;
+            this.bloomAlgas=bloomAlgas;
             this.fechaRegistro=fechaRegistro;
             this.usuarioId=usuarioId;
         }
@@ -79,6 +82,12 @@ public class MonitoreoA {
     }
     public void setSalinidad(double salinidad) {
         this.salinidad=salinidad;
+    }
+    public boolean isBloomAlgas() {
+        return bloomAlgas;
+    }
+    public void setBloomAlgas(boolean bloomAlgas) {
+        this.bloomAlgas=bloomAlgas;
     }
     public LocalDateTime getFechaRegistro() {
         return fechaRegistro;
