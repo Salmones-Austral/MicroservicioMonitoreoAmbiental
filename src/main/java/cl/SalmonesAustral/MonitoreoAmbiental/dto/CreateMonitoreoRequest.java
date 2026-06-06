@@ -8,6 +8,9 @@ public record CreateMonitoreoRequest (
     @NotNull(message ="El id de jaula no puede estar vacio")
     Integer jaulaId,
 
+      @NotNull(message = "El id de usuario no puede estar vacio")
+    Integer usuarioId,
+
     @NotNull(message="Debe registrar la temperatura")
     @PositiveOrZero(message="La temperatura no puede ser un valor negativo")
     Double temperatura,
@@ -24,10 +27,9 @@ public record CreateMonitoreoRequest (
     Boolean bloomAlgas,
 
     @NotNull(message = "Debe ingresar la fecha de registro")
-    LocalDateTime fechaRegistro,
+    LocalDateTime fechaRegistro
 
-    @NotNull(message = "El id de usuario no puede estar vacio")
-    Integer usuarioId
+  
 
 ) {
 
