@@ -26,21 +26,39 @@ public class MonitoreoService {
     }
     //POST guardar
     public MonitoreoA saveMonitoreo(MonitoreoA monitoreo) {
+        //guarda monitoreo en la bd de neon
         MonitoreoA guardado = monitoreoRepository.save(monitoreo);
+        //comunicacion con msv de alertas(puerto 8083)
         if(guardado.getOxigenoDisuelto()<4.0 || guardado.getBloomAlgas()) {
             System.out.println("===¡EMERGENCIA! Conectando a ALERTAS===");
             try{
-                String respuesta = webClient.post()
-                    .uri("http://localhost:8083/api/vi/alertas")
+                String respuestaAlerta = webClient.post()
+                    .uri("http://localhost:8083/api/v1/alertas?mortalidad=1")
                     .bodyValue(guardado)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
-                System.out.println("¡Alerta enviada con exito!. Respuesta: " + respuesta);
+                System.out.println("¡Alerta enviada con exito!. Respuesta: " + respuestaAlerta);
             }catch (Exception e) {
                 System.out.println("Alerta NO fue enviada (Servidor 8083 apagado) ");
                 System.out.println("Detalle del error: " + e.getMessage());
             }
+        }
+
+        //Comunicacion con el msv de jaula(8081)
+        System.out.println("=== ACTUALIZANDO estado de jaulas: === " );
+        try{
+            String respJaula = webClient.put()
+            .uri("http://localhost:8081/api/v1/jaulas/" + guardado.getJaulaId())
+            .bodyValue(guardado)
+            .retrieve()
+            .bodyToMono(String.class)
+            .block();
+            System.out.println("===Jaula actualizada. Respuesta: " + respJaula + " === ");
+
+        }catch (Exception e) {
+            System.out.println(" === No se pudo conectar a jaulas === " );
+            System.out.println("Detalle: " + e.getMessage());
         }
         return guardado;
     }
