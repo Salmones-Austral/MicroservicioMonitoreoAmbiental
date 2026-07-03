@@ -8,17 +8,27 @@ import org.springframework.beans.factory.annotation.Value;
 @Configuration
 public class WebClientConfig {
 
-    @Bean
-    ("jaulasWebClient")
-    public WebClient jaulasWebClient(WebClient.Builder builder,
-        @Value("${jaulas.service.url}") String jaulasServiceUrl) {
-            return builder.baseUrl(jaulasServiceUrl).build();
-        }
+    @Value("${jaulas.service.url}") 
+        private String jaulasUrl;
 
-    @Bean
-    ("alertasWebClient")
-    public WebClient alertasWebClient(WebClient.Builder builder,
-        @Value("${alertas.service.url}") String alertasServiceUrl) {
-            return builder.baseUrl(alertasServiceUrl).build();
-        }
+    @Bean(name = "jaulasWebClient")
+    public WebClient jaulasWebClient() {
+        return WebClient.builder()
+        .baseUrl(jaulasUrl)
+        .build();
+    }
+        
+
+
+    @Value("${alertas.service.url}")
+        private String alertasUrl;
+
+    @Bean(name = "alertasWebClient")
+    public WebClient alertasWebClient() {
+        return WebClient.builder()
+        .baseUrl(alertasUrl)
+        .build();
+    }
+   
+        
 }

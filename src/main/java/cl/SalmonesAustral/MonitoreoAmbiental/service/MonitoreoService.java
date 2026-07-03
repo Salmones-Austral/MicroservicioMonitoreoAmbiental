@@ -36,6 +36,8 @@ public class MonitoreoService {
     }
     //POST guardar
     public MonitoreoA saveMonitoreo(MonitoreoA monitoreo) {
+        System.out.println("IICIANDO FLUJO DE MONITOREO AMBIENTAL....");
+        
         try {
             System.out.println("Validando si existe la jaula....");
             jaulasWebClient.get()
