@@ -36,12 +36,12 @@ public class MonitoreoService {
     }
     //POST guardar
     public MonitoreoA saveMonitoreo(MonitoreoA monitoreo) {
-        System.out.println("IICIANDO FLUJO DE MONITOREO AMBIENTAL....");
+        System.out.println("INICIANDO FLUJO DE MONITOREO AMBIENTAL....");
 
         try {
             System.out.println("Validando si existe la jaula....");
             jaulasWebClient.get()
-            .uri("/api/v1/jaulas/" + monitoreo.getJaulaId())
+            .uri("/" + monitoreo.getJaulaId())
             .retrieve()
             .bodyToMono(Object.class)
             .block();
@@ -53,6 +53,7 @@ public class MonitoreoService {
         //si la jaula existe: guarda monitoreo en la bd de neon
         MonitoreoA guardado = monitoreoRepository.save(monitoreo);
         System.out.println("Guardado con exito");
+        
 
         //2da conexion, alertas por si hay anomalias en el agua
         if(guardado.getOxigenoDisuelto()<4.0 || guardado.getBloomAlgas()) {
