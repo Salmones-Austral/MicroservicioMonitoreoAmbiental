@@ -37,11 +37,11 @@ public class MonitoreoService {
     //POST guardar
     public MonitoreoA saveMonitoreo(MonitoreoA monitoreo) {
         System.out.println("IICIANDO FLUJO DE MONITOREO AMBIENTAL....");
-        
+
         try {
             System.out.println("Validando si existe la jaula....");
             jaulasWebClient.get()
-            .uri("/" + monitoreo.getJaulaId())
+            .uri("/api/v1/jaulas/" + monitoreo.getJaulaId())
             .retrieve()
             .bodyToMono(Object.class)
             .block();
